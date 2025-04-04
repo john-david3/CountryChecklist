@@ -9,8 +9,10 @@
   - Possibly display these cities on the larger world map as well (may not look good)
 - When a country is selected as being visited, it should be coloured in
   - What colours? Flags?
+- Logged-in users have persisted data. Logged-out users only get sessions
 
 ## Technologies
 - Frontend Visualiser - React
 - Backend for handling operations - Go
 - Database for storing information - PostgreSQL
+- JSON to parse information between React and Go?
