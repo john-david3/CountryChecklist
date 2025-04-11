@@ -64,8 +64,3 @@ func parse_json() {
 		fmt.Println("Country Name:", country.Properties.Name)
 	}
 }
-
-
-func main() {
-	parse_json()
-}
