@@ -2,8 +2,14 @@
 An App for visualizing all the countries that you have been to
 
 ## Prerequisites
+- React v18
 - NodeJS
 - npm
+- vite `npm install -D vite`
+
+## Dependencies
+- `react-simple-maps` [text](https://www.react-simple-maps.io/)
+- `d3-geo` [text](https://github.com/d3/d3-geo)
 
 ## Setup
 ### Frontend
