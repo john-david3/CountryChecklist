@@ -8,15 +8,15 @@ import {
 } from "react-simple-maps";
 
 const geoUrl =
-  "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+  "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json";
 
 const WorldMap: React.FC = () => {
   return (
     <ComposableMap
       projection="geoEqualEarth"
-      style={{ width: "60em" }}
+      style={{ width: "65em" }}
     >
-      <ZoomableGroup zoom={1} maxZoom={8} minZoom={0.5}>
+      <ZoomableGroup zoom={1.1} maxZoom={20} minZoom={1}>
         <Geographies geography={geoUrl}>
           {({ geographies }) =>
             geographies.map((geo) => (

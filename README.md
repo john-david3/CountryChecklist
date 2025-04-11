@@ -8,8 +8,8 @@ An App for visualizing all the countries that you have been to
 - vite `npm install -D vite`
 
 ## Dependencies
-- `react-simple-maps` [text](https://www.react-simple-maps.io/)
-- `d3-geo` [text](https://github.com/d3/d3-geo)
+- [react-simple-maps](https://www.react-simple-maps.io/)
+- [d3-geo](https://github.com/d3/d3-geo)
 
 ## Setup
 ### Frontend
