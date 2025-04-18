@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"encoding/json"
@@ -27,7 +27,7 @@ type Geometry struct {
 	}
 }
 
-func parse_json() {
+func ParseJson() {
 	resp, err := http.Get("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json")
 	if err != nil {
 		fmt.Println(err)
