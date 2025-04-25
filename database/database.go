@@ -2,46 +2,62 @@ package database
 
 import (
 	"database/sql"
-	"log"
+	"errors"
+	"log/slog"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
 var db *sql.DB
 
-func CreateConnection(){
+func CreateConnection() error {
 	var err error
 
-	db, err = sql.Open("sqlite3", "database/app.db")
-	if err != nil{
-		log.Fatal(err)
-	}
+	db, err = sql.Open("sqlite3", "../database/app.db")
+
+	return err
 }
 
-func Execute(query string, args ...interface{}){
-	if db == nil{
-		log.Fatal("DB needs to be initialised before executed on")
+func Execute(query string, args ...interface{}) error {
+	if db == nil {
+		slog.Error("DB needs to be initialised before executed on")
+		return errors.New("database not initialised")
 	}
-
 	_, err := db.Exec(query, args...)
-	if err != nil{
-		log.Fatal(err)
+
+	return err
+}
+
+func Fetch(query string, args ...interface{}) (*sql.Rows, error) {
+	if db == nil {
+		slog.Error("DB needs to be initialised before queried on")
+		return nil, errors.New("database not initialised")
+	}
+	rows, err := db.Query(query, args...)
+
+	return rows, err
+}
+
+func CloseConnection() {
+	err := db.Close()
+	if err != nil {
+		slog.Error("Error closing database")
 	}
 }
 
-func Fetch(query string, args ...interface{}) *sql.Rows{
-	if db == nil{
-		log.Fatal("DB needs to be initialised before queried on")
-	}
-
-	rows, err := db.Query(query, args...)
-	if err != nil{
-		log.Fatal(err)
-	}
+func DBRowToStringList(rows *sql.Rows) ([]string, error) {
+	var result []string
 	defer rows.Close()
 
-	return rows
-}
+	for rows.Next() {
+		var value string
 
+		err := rows.Scan(&value)
+		if err != nil {
+			return nil, err
+		}
+		result = append(result, value)
+	}
 
-func CloseConnection(){
-	db.Close()
+	return result, nil
 }

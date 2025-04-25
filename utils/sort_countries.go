@@ -3,14 +3,15 @@ package utils
 import (
 	"bufio"
 	"fmt"
+	"log/slog"
 	"os"
 
 	"country-checklist/database"
 )
 
-func SortCountries(){
+func SortCountries() {
 	f, err := os.Open("utils/countries.txt")
-	if err != nil{
+	if err != nil {
 		fmt.Println(err)
 	}
 	defer f.Close()
@@ -30,8 +31,8 @@ func SortCountries(){
 		var i int
 		fmt.Print(country, ":")
 		fmt.Scan(&i)
-	
-		switch i{
+
+		switch i {
 		case 1:
 			europe = append(europe, country)
 		case 2:
@@ -59,18 +60,22 @@ func SortCountries(){
 	continents[5] = oceania
 	continents[6] = other
 
-	database.CreateConnection()
+	err = database.CreateConnection()
+	if err != nil {
+		slog.Error("database connection could not be created")
+		return
+	}
 	defer database.CloseConnection()
 
-	for _, continent := range continents{
-		for j:=1;j<len(continent);j++{
-			database.Execute("INSERT INTO countries(country, continent) VALUES (?, ?);", 
-			continent[j], continent[0])
+	for _, continent := range continents {
+		for j := 1; j < len(continent); j++ {
+			err = database.Execute("INSERT INTO countries(country, continent) VALUES (?, ?);",
+				continent[j], continent[0])
+
+			if err != nil {
+				slog.Error("error inserting country into database", "error", err)
+			}
 		}
 	}
 
-}
-
-func main(){
-	SortCountries()
 }
