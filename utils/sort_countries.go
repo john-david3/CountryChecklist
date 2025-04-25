@@ -1,25 +1,27 @@
-package main
+package utils
 
 import (
 	"bufio"
 	"fmt"
 	"os"
+
+	"country-checklist/database"
 )
 
-func sort_countries(){
+func SortCountries(){
 	f, err := os.Open("utils/countries.txt")
 	if err != nil{
 		fmt.Println(err)
 	}
 	defer f.Close()
 
-	europe := []string{}
-	africa := []string{}
-	asia := []string{}
-	south_america := []string{}
-	north_america := []string{}
-	oceania := []string{}
-	other := []string{}
+	europe := []string{"europe"}
+	africa := []string{"africa"}
+	asia := []string{"asia"}
+	south_america := []string{"south america"}
+	north_america := []string{"north america"}
+	oceania := []string{"oceania"}
+	other := []string{"other"}
 
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
@@ -47,16 +49,28 @@ func sort_countries(){
 		}
 	}
 
-	fmt.Println(europe)
-	fmt.Println(africa)
-	fmt.Println(asia)
-	fmt.Println(south_america)
-	fmt.Println(north_america)
-	fmt.Println(oceania)
-	fmt.Println(other)
+	// Add all the continents to a matrix
+	continents := make([][]string, 7)
+	continents[0] = europe
+	continents[1] = africa
+	continents[2] = asia
+	continents[3] = south_america
+	continents[4] = north_america
+	continents[5] = oceania
+	continents[6] = other
+
+	database.CreateConnection()
+	defer database.CloseConnection()
+
+	for _, continent := range continents{
+		for j:=1;j<len(continent);j++{
+			database.Execute("INSERT INTO countries(country, continent) VALUES (?, ?);", 
+			continent[j], continent[0])
+		}
+	}
 
 }
 
 func main(){
-	sort_countries()
+	SortCountries()
 }
