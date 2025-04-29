@@ -10,7 +10,7 @@ func TestFetchMenu(t *testing.T){
 	t.Run("Expected Result is Correct", func(t *testing.T) {
 		result, err := FetchMenu()
 		
-		assert.Nil(t, err)
+		assert.Nil(t, err)	// require.NoError should be used instead
 		assert.NotNil(t, result)
 	})
 }
