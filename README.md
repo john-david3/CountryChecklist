@@ -6,6 +6,7 @@ An App for visualizing all the countries that you have been to
 - NodeJS
 - npm
 - vite `npm install -D vite`
+- Make
 
 ## Dependencies
 - [react-simple-maps](https://www.react-simple-maps.io/)
