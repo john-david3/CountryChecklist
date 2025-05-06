@@ -4,13 +4,14 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestFetchMenu(t *testing.T){
-	t.Run("Expected Result is Correct", func(t *testing.T) {
+	t.Run("Countries are fetched correctly", func(t *testing.T) {
 		result, err := FetchMenu()
 		
-		assert.Nil(t, err)	// require.NoError should be used instead
+		require.NoError(t, err)
 		assert.NotNil(t, result)
 	})
 }

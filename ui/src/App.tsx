@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 import WorldMap from './components/WorldMap'
+import CheckList from './components/CheckList'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -13,6 +14,7 @@ function App() {
       <div>
         <h1>World Map CheckList</h1>
         <WorldMap />
+        <CheckList />
       </div>
     </>
   )
