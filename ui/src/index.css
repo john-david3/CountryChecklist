@@ -66,3 +66,32 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* Tabbed Menu */
+[data-tab-content]{
+  display: none;
+}
+
+.active[data-tab-content]{
+  display: block;
+}
+
+.tabs{
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+  border-bottom: 1px solid black;
+}
+
+.tab{
+  cursor: pointer;
+  padding: 10px;
+}
+
+.tab:hover{
+  background-color: red;
+}
+
+.tab.active{
+  background-color: purple;
+}
