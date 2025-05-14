@@ -6,7 +6,7 @@ GORUN	= $(GOCMD) run
 NPMCMD	= npm run dev
 
 BUILD_DIR		:= build
-PROJECT_DIR		= cmd/agent
+PROJECT_DIR		= cmd
 PROJECT_FILE	= main.go
 REACT_DIR		= ui
 
