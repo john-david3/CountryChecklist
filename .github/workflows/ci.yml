@@ -1,0 +1,26 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    steps: 
+      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+        with:
+          go-version-file: go.mod
+      - name: create mkdir
+        run: mkdir -p test_results/lint-results.json
+      - name: Lint Code
+        uses: golangci/golangci-lint-action@82d40c283aeb1f2b6595839195e95c2d6a49081b
+        with:
+          args: --output.json.path=test_results/lint-results.json
+          skip-cache: true
+      - name: Upload artifact
+        if: success() || failure()
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        with:
+          name: linting-test-results
+          path: test_results/lint-results.json
+          retention-days: 1
